@@ -1,0 +1,63 @@
+<div class="dragged-item " id="dragged-item" style="" >	
+	<div class="col-lg-12" style="padding-top:20px; ">	
+		<div class="h4-span" style="display: flex; align-items: center;">
+			<span  style=" float: left" class="col-lg-11"><%= @parent_rule.name %></span> 
+			<div class="" >	
+				<img src="../../assets/img/sidebar_icon/app_rgger.png" data-toggle="collapse" data-target="#demo1" /> 
+			</div>	
+		</div>
+		<div id="demo1" class="collapse in col-lg-12" style=" padding:0px; font-weight: bold;background:#b8e5f9; width:92%;"> 
+			<div class="demo-collapse" style="padding:0px;" data-toggle="collapse" data-target="#demo11">
+				<span  style=" float: left; padding:10px ;cursor: pointer;" class="col-lg-11">
+					<%= @rule.name %> 
+				</span>	
+			</div>
+			<div id="demo11" class="collapse in col-lg-12" style="padding:10px 0px; font-weight: bold; background:#ddf2fd;"> 
+				<%= form_for :strategy_rules, url: rules_for_strategy_path, remote: true do |f|%>
+					<div class="demo-collapse" style="padding:0px;">
+						<div class="col-lg-12" style="padding-top:20px; "> 
+							<div>
+								<span id="date-text1-2" class="date-text1-2" style="display: none;"></span> 
+							</div>	
+							<p style=" font-weight: bold; "> Start Date : 
+								<%= text_field_tag "rules[fromdate]","",id: "fromdate",onclick: "myfun1()"%> 
+								<div id="demo1-2" style=" float: left;">								
+								</div>
+							</p>
+						</div>
+						<div class="col-lg-12" style="padding-top:20px;">
+							<div>            
+								<span id="date-text1-21" class="date-text1-21" style="display: none;">			
+								</span>  
+							</div>
+							<p style=" font-weight: bold; "> End Date :  
+								<%= text_field_tag "rules[todate]","", id: "todate", onclick: "myfun2()"%> 
+								<div id="demo1-21" style=" float: left;"></div>
+							</p>	
+						</div>	
+						<%= hidden_field_tag "strategy_id", @strategy.id%>
+						<%= hidden_field_tag "rule_id", @rule.id%>
+						<div class="col-lg-12" style="padding:0px; margin-top:20px; ">		
+							<h4> Share  </h4>		
+							<a href="">
+								<img src="../../assets/img/social_media/whatsapp.png" style="margin-right:8px; width:40px;" /> 
+							</a>		
+							<a href="">
+								<img src="../../assets/img/social_media/fb.png" style="margin-right:8px; width:40px;" />
+							</a>		
+							<a href="">
+								<img src="../../assets/img/social_media/insta.png" style="margin-right:8px; width:40px;" />
+							</a>		
+							<a href="">
+								<img src="../../assets/img/social_media/tw.png" style="margin-right:8px; width:40px;" />
+							</a>	
+						</div>	
+						<div class="col-lg-12" style="padding:0px; margin:20px 0px;">
+							<%= f.submit "Add", class: "btn btn-info"%> 
+						</div>	
+					</p>	
+				</div>
+			<% end %>	
+		</div>
+	</div>
+</div>

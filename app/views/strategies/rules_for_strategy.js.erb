@@ -1,0 +1,3 @@
+$(".saved_rule").html("<%=j render partial: 'saved_rules', local: {:display_rules_for_strategy => @display_rules_for_strategy} %>");
+
+$("#edit_popup_model").html("<%=j render partial: 'edit_strategy_popup', local: {:display_rules_for_strategy => @display_rules_for_strategy} %>");

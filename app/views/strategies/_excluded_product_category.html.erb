@@ -1,0 +1,33 @@
+<div class="dragged-item " id="dragged-item" style="" >	
+	<div class="col-lg-12" style="padding-top:20px; ">	
+		<div class="items" ><span  style=" float: left" class="col-lg-11"><%= @parent_rule.name %></span> 
+			<div class="" >	
+				<img src="../../assets/img/sidebar_icon/time.png" data-toggle="collapse" data-target="#demo1" /> 
+			</div>	
+		</div>
+		<div id="demo1" class="collapse in col-lg-12" style="style: padding:0px; font-weight: bold; margin-top:10px;"> 
+			<div class="demo-collapse" style="padding:0px;">
+				<span  style=" float: left" class="col-lg-11"><%= @rule.name %> 
+				</span> 
+				<div class="" >	
+					<img src="../../assets/img/sidebar_icon/time.png" data-toggle="collapse" data-target="#demo11" />
+				</div>	
+			</div>
+			<div id="demo11" class="collapse in col-lg-12" style="style: padding:0px; font-weight: bold; margin-top:10px;"> 
+				<%= form_for :strategy_rules, url: rules_for_strategy_path, remote: true do |f|%>
+					<div class="demo-collapse" style="padding:0px;">
+						<div class="col-lg-12" style="">	
+							<%= image_tag @rule.icon_image, width: "100" %>				
+							<div class="col-lg-12" style="padding:0px; margin-top:20px;">
+								<%= hidden_field_tag "rules[#{@rule.name}]", @rule.name %>
+								<%= hidden_field_tag "strategy_id", @strategy.id%>
+								<%= hidden_field_tag "rule_id", @rule.id%>
+								<%= f.submit "Add", class: "btn btn-info" %>	
+							</div>	
+						</div>		
+					</div>
+				<% end %>
+			</div>	
+		</div>
+	</div> 
+</div>

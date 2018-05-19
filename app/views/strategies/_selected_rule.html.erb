@@ -1,0 +1,31 @@
+<% if @design_pattern_one %>
+	<% if @selected_rule.present? %>	
+		<% @selected_rule.each do |selected_rule| %>
+			<figure class=" fig" style="margin:20px 0px;">
+			  <div class="fig-border" > 
+			    <%= image_tag selected_rule.image_icon, id: "product_cat_img_#{selected_rule.name.parameterize}", "data-value": selected_rule.name, width: "100%" %>
+			  </div>
+			  <div class="figcap-border" >
+			    <figcaption style=" " id="product_cat_text_<%= selected_rule.name.parameterize%>"><%= selected_rule.name %></figcaption>
+			    <%= hidden_field_tag "selected_rule_#{selected_rule.name.parameterize}", selected_rule.name %>
+			  </div>
+			</figure>
+		<% end %>
+	<% else %>
+		<figure class=" fig" style="margin:20px 0px;">
+		  <div class="fig-border" > 
+		    <%= image_tag @rule.icon_image, id: "product_cat_img", width: "100%" ,"data-value": @rule.name%>
+		  </div>
+		  <div class="figcap-border" >
+		    <figcaption style=" " id="product_cat_text"><%= @rule.name %></figcaption>
+		  </div>
+		</figure>
+	<% end %>
+<% else %>
+	<div style="" class="col-lg-12 logo-div1" data-value="<%= @rule.name == "App Download" ? true : ""%>">
+		<%= image_tag "img/download.png", id: "product_cat_img", style: "position: absolute; width: 65px; margin-left: 30px; margin-top: 10px;","data-value": @rule.name %>
+	</div>
+	<%= image_tag "product/icon.png", class: "icon-div", style: "" %>
+	<p class="p-div" id="product_cat_text" style=""><%= @rule.name %></p>
+	<%= image_tag "product/shadow.png", class: "shadow", style: "" %>
+<% end %>

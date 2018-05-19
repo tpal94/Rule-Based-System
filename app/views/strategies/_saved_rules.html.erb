@@ -1,0 +1,172 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag "easy-responsive-tabs" %>
+  <%= stylesheet_link_tag "custom" %>
+  <%= stylesheet_link_tag "custom2" %>
+  <%= stylesheet_link_tag "custom5" %>
+  <%= stylesheet_link_tag "product_strategy" %>
+  <%= stylesheet_link_tag "custom8" %>
+  <%= stylesheet_link_tag "custom9" %>
+  <%= stylesheet_link_tag "custom14" %>
+  <%= javascript_include_tag "easyResponsiveTabs" %>
+
+<% end %>
+<style type="text/css">
+	.h4-span { margin-top:2px; }
+	.value-inside  > div {background: #b8e5f9;}
+	.value-inside > .collapse { background : #ddf2fd; }
+	.cc { border-bottom:1px solid #f4f2f2; padding: 5px 10px; cursor: pointer;}
+	.cc > p {  width: 40%;  float: left;  }
+	.cc > span {  width: 60%; float: left;  }
+	.value-inside  {  padding:0px;}
+	div.value-inside > p:first-child { margin-top:0px !important; }
+	#parentVerticalTab { height: 435px; }
+	.div1 { height:370px; overflow:auto; }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div id="parentVerticalTab" style="margin-top: 20px !important;">
+  <div class="resp-tabs-container hor_1" style="margin-left:10px;"> 
+  	<% @display_rules_for_strategy.each_with_index do |parent_rule, index| %>
+			
+			<div id="#demo<%= index + 1%>" class="collapse col-lg-12 div1 " style="padding:0px"> 
+				<div class="demo-collapse">
+					<div class="h4-span" style="display: flex; align-items: center;">
+						<span  style=" float: left;" class="col-lg-12" ><%= parent_rule[0].name %></span> 
+					</div>
+					<div class="value-inside col-lg-12" >
+						<% parent_rule[1].uniq.each do |rule| %>
+							<% if params[:strategy_id].present? %>
+								<% strategy_id = params[:strategy_id]%>
+							<% else %>
+								<% strategy_id = params[:id]%>
+							<% end %>
+							<% values = StrategyRule.where(rule_id: rule.id, strategy_id: strategy_id) %>
+						  <% values.each do |val|  %>
+								<% value = val.value.reverse_each.to_h %> 
+								<div class="col-lg-12 cc" data-toggle="collapse" data-target="#<%= rule.name.parameterize + (val.id).to_s %>">
+									<p style="font-weight: bold;  "  class="inside-div" > 
+										<% if rule.name == "Start and End date with time" %>
+											<%= "Date & Time"%>
+										<% elsif rule.name == "In-App Engagement Trigger" %>
+											<%= "No of Inactive days" %>
+										<% else %>
+											<%= rule.name %>
+										<% end %> 
+									</p>
+									<span style="font-weight:normal">
+										<% value.each do |k,v| %>
+	                    <% if k == "less_than" %>
+	                      <%= "< #{v}" %>
+	                    <% elsif k == "greater_than" %>
+	                      <%= "> #{v} and" %>
+	                    <% elsif k!="fromdate" && k!="todate" && k!= "date" && k!= "rewards"%>
+	                      <%= v %>
+	                    <% end %>
+	                  <% end  %>
+									</span>
+								</div>
+								<div id="<%= rule.name.parameterize + (val.id).to_s %>" class="collapse col-lg-12" style="padding:0px;"> 
+									<div class="demo-collapse">
+	                  <% if parent_rule[0].name == "TIME BASED" || parent_rule[0].name == "OCASSION BASED" || rule.name == "Membership"%>
+	                    <% value.each do |k,v| %>
+	                    	<div  style="padding: 5px 10px;">
+	                    		<% if rule.name == "Birthday" || rule.name == "Anniversary" %>
+			                    	<p style="margin-bottom: 5px;width: 40%; float: left">Date</p>
+			                      <% date =  v.to_datetime %>
+			                      <p style="width: 60%; float: left"> <%= date.strftime("%B %d %Y") %></p>
+			                    <% else %>
+			                      <p style="width: 40%; float: left"><%= k == "fromdate" ? "Start" : "End" %> Date </p>
+			                      <% date =  v.to_datetime %>
+			                      <p style="width: 60%; float: left"> <%= date.strftime("%B %d %Y") %></p>
+			                      <p style="width: 40%; float: left"> Time </p>
+			                      <p style="width: 60%; float: left"> <%= date.strftime("%H:%M") %></p>
+			                    <% end %>
+		                    </div>
+	                    <% end %>
+	                  <% elsif rule.name == "Rewards" %>
+	                  	<p style="margin-left: 10px;height: 26px;margin-top: 4px;width: 40%; float: left "> <%= value.values[0] %> Points</p>
+	                  <% else %>
+											<figure class="col-lg-5 fig" style="">
+								 				<% if rule.icon_image.present? && (parent_rule[0].name != "LOYAL CUSTOMER PROGRAMME" && parent_rule[0].name != "GEOGRAPHY" && rule.name != "Category" && rule.name != "Product" && rule.name != "Brand")%>
+								 					<div class="fig-border" > 
+			                    	<%= image_tag rule.icon_image, style: "width:100%;" %>
+								 					</div>
+			                  <% elsif parent_rule[0].name == "GEOGRAPHY" || rule.name == "Category" || rule.name == "Product" || rule.name == "Brand" %>
+			                  	<div class="fig-border" > 
+				                    <% image_icon = rule.name.constantize.find_by_name(value.values[0]).image_icon %>
+				                    <%= image_tag image_icon, style: "width:100%;" %>
+				                  </div>
+			                  <% end %>
+											</figure> 
+										<% end %>
+									</div>
+								</div>
+							<% end %>
+						<% end %>
+					</div>
+				</div>		
+			</div>
+		<% end %>
+         <!-- tab1 -->
+	</div>
+
+	<ul class="resp-tabs-list hor_1">
+		<% @display_rules_for_strategy.each do |parent, rule| %>
+	    <li>
+	    	<%= image_tag parent.icon_image %>
+	    </li>            
+	  <% end %>
+  </ul>
+</div>
+<% if @display_rules_for_strategy.present? %>
+	<div class="col-lg-12" >
+		<% unless @strategy.name.present? %>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myUpdateModal">Save</button>
+		<% else %>
+			<%= link_to "Save", strategies_path, class: "btn btn-primary"%>
+		<% end %>
+		<%= link_to "Save As Draft", draft_strategy_path(strategy_id: @strategy.id), class: "btn btn-primary"%>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Preview</button>  
+		<!-- Modal -->
+		<%= render partial: "display_strategy_popup"%>
+		<%= render partial: "update_strategy_popup"%>
+
+  </div>
+<% end %>
+<script type="text/javascript">
+	$(document).ready(function() {
+	  var str = window.location.href;
+		var res = str.split("?");
+		var ss = res[1];
+    $('#parentVerticalTab').easyResponsiveTabs({
+        type: 'vertical', //Types: default, vertical, accordion
+        width: 'auto', //auto or any width like 600px
+        fit: true, // 100% fit in a container
+        closed: 'accordion', // Start closed if in accordion view
+        tabidentify: 'hor_1', // The tab groups identifier
+        activate: function(event) { // Callback function if tab is switched
+            var $tab = $(this);
+            var $info = $('#nested-tabInfo2');
+            var $name = $('span', $info);
+            $name.text($tab.text());
+            $info.show();
+        }
+    });
+  });
+</script>
+<style>
+  .aa2 { background : #ddf2fd; }
+  .aa1 {background:#b8e5f9;  }
+  .aa1 > .collapse > p { padding:0px 10px 10px; 10px; cursor: pointer; margin-bottom:0px}
+  .im { padding: 10px; }
+  .aa2 > p { padding:0px 0px 10px 10px; margin-bottom:0px; }
+  .aa1 > div > p { padding-bottom: 10px; } 
+  ul.lst { list-style-type: inherit; }
+
+  .modal-body {  height: 460px; overflow: auto; margin-bottom: 20px; margin-top: 20px; }
+</style>
+<style>
+.gradient { overflow-y: auto; overflow-x: hidden; border-top-left-radius: 5px; }
+.fig-border { width: 110px; }
+.heading { margin-bottom:10px; }
+</style>

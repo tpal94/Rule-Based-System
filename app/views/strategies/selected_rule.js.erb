@@ -1,0 +1,135 @@
+<% if @design_pattern_one %>
+	$(".selected_rule").removeClass('header-logo');
+<% else %>
+	$(".selected_rule").addClass('header-logo');
+<% end %>
+$("#rules_search").val("");
+$(".selected_rule").css('visibility', 'visible');
+$(".dropdown-container").css("display", "none");
+$(".selected_rule").html("<%=j render partial: 'selected_rule', :local => {:parent_rule => @parent_rule, :rule => @rule, :design_pattern_one => @design_pattern_one, :selected_rule => @selected_rule} %>");
+
+$(".drag_and_drop_active").html("<%=j render partial: 'drag_and_drop_active' %>")
+
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev,ele) {
+  //alert(ele);
+  ev.dataTransfer.setData("text", ev.target.id);
+  //$("#ele").css('visibility', 'hidden');
+  document.getElementById("dragged_ele_id").value = ele;
+}
+
+function drop(ev, eleid) {
+
+  ev.preventDefault();
+//document.getElementById("drop-bg").style.backgroundColor  = "white"; 
+//  document.getElementById("drop-bg1").style.display  = "none";
+//  document.getElementById("dragged-item").style.visibility = "visible"; 
+ // document.getElementById("drag1").style.display = "none"; 
+  var data = ev.dataTransfer.getData("text");
+
+  <% if @rule.name == "App Download" %>
+    var a = $("#"+data).children().data('value');
+  <% else %>
+    var a = $("#"+data).data('value');
+  <% end %>
+  var b = document.getElementById(data).src;
+  //alert(eleid);
+  var c = document.getElementById("dragged_ele_id").value;
+  
+  var d ="#"+c;
+  
+  
+  $('.gender_geography_image').attr('src', b);
+
+  <% if @selected_rule %>
+    $(".geography_value").val(a);
+    $(".selected_gender_geo").text(a);
+  <% end %>
+
+  $("#remove1").click(function(){
+      $("#field1").val("");
+  });
+
+  $("#remove2").click(function(){
+      $("#field2").val("");
+  });
+
+  $(d).css('visibility', 'hidden');
+
+  <% if (@parent_rule.name == "GEOGRAPHY" || @parent_rule.name == "GENDER BASED" || @rule.name == "Category" || @rule.name == "Brand" || @rule.name == "Product" || @rule.name  == "App Download") %>
+    $.ajax({
+      type: 'POST',
+      url: '<%= rules_for_strategy_path %>',
+      dataType: 'script',
+      data: {
+        "strategy_id" : "<%= @strategy.id %>",
+        "rule_id" : "<%= @rule.id %>",
+        "rules[<%= @rule.name%>]" : a       
+      }
+    });
+  <% else %>
+    var c = $("#drop-bg").html("<%=j render partial: 'dropped_content', :local => {:parent_rule => @parent_rule, :rule => @rule, :design_pattern_one => @design_pattern_one, :strategy => @strategy, :selected_rule => @selected_rule} %>");
+  <% end %>
+}
+  
+
+function drop1() { 
+  document.getElementById("dragged-item").style.visibility = "visible"; 
+  document.getElementById("drag1").style.display = "none"; 
+}
+
+//Make the DIV element draggagle:
+dragElement(document.getElementById(("mydiv")));
+
+  function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+      /* if present, the header is where you move the DIV from:*/
+      document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+      /* otherwise, move the DIV from anywhere inside the DIV:*/
+      elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      // get the mouse cursor position at startup:
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      // calculate the new cursor position:
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      // set the element's new position:
+      elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    
+    toppx = 80 + "px";
+    leftpx =  798 + "px";
+    
+    
+    if(elmnt.style.top >= toppx || elmnt.style.left >= leftpx )
+    {
+      document.getElementById("dragged-item").style.visibility = "visible"; 
+      document.getElementById("drag1").style.display = "none"; 
+    }
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}

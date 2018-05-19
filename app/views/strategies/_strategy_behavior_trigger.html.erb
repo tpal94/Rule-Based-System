@@ -1,0 +1,55 @@
+<div class="dragged-item " id="dragged-item" style="">	
+	<div class="col-lg-12" style="padding-top:20px; ">	
+		<div class="items" >
+			<span  style=" float: left" class="col-lg-11"><%= @parent_rule.name %></span> 
+			<div class="" >	
+				<%= image_tag @parent_rule.icon_image, "data-toggle": "collapse", "data-target": "#demo1" %>
+			</div>	
+		</div>
+		<div id="demo1" class="collapse in col-lg-12" style="style: padding:0px; font-weight: bold; margin-top:10px;"> 
+			<div class="demo-collapse" style="padding:0px;">
+				<span  style=" float: left" class="col-lg-11"><%= @rule.name %></span> 
+				<div class="" >	
+					<img src="../../assets/img/sidebar_icon/time.png" data-toggle="collapse" data-target="#demo11" />
+				</div>	
+			</div>
+			<div id="demo11" class="collapse in col-lg-12" style="style: padding:0px; font-weight: bold; margin-top:10px;"> 
+				<%= form_for :strategy_rules, url: rules_for_strategy_path, remote: true do |f|%>
+					<div class="demo-collapse" style="padding:0px;">
+						<div class="col-lg-12" style="padding-top:20px; margin-top: 20px; ">				
+							<div class="col-lg-12" style="background: linear-gradient(to right,#2bafd4, #588cc0); color: #042832; padding: 20px ; position: relative; border-top-left-radius :5px; border-top-right-radius :5px; padding:35px 0px 0px;"  >	 
+								<img  src="../../assets/img14/icon.png" style="position: absolute; width: 50px; margin: -55px 110px;">	
+								<div style="position: absolute; padding: 20px; background-color: #86d5f4;">	
+									<p style="font-size: 14px; font-weight: bold;"> <%= @rule.name %> </p>		 
+									<label style="font-size: 14px; font-weight: normal;">Greater than(>): 
+									</label>
+									<div class="input-group" style="margin-bottom: 10px;">
+										<%= text_field_tag "rules[greater_than]","", id: "field1", class: "form-control", placeholder: @placeholder.present? ? "In #{@currency}" : ""%>
+										<span class="input-group-addon" style="">
+											<i  id="remove1" class="glyphicon glyphicon-remove" style=" cursor: pointer;"  >											
+											</i>
+										</span>		
+									</div>		
+									<label style="font-size: 14px;font-weight: normal; ">Less than(<): 
+									</label>	
+									<div class="input-group">	
+										<%= text_field_tag "rules[less_than]","", id: "field2", class: "form-control", placeholder: @placeholder.present? ? "In #{@currency}" : ""%>	
+										<span class="input-group-addon" style="">
+											<i  id="remove2" class="glyphicon glyphicon-remove"  style=" cursor: pointer;"  >											
+											</i>
+										</span>		
+									</div>
+									<%= hidden_field_tag "strategy_id", @strategy.id%>
+									<%= hidden_field_tag "rule_id", @rule.id%>			
+									<div class="input-group" style="margin-top:10px; margin-left: 50px; ">		
+										<%= f.submit "OK", class: "btn", style: "background-color: #1c2857; color: #fff; width: 80px;"%>
+									</div>		
+								</div>		
+							</div>		
+						</div>		
+					</div>
+				<% end %>
+			</div>	
+		</div>
+	</div> 
+</div>

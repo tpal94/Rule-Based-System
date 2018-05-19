@@ -1,0 +1,3 @@
+$('.display_strategy').html('<%=j render partial: "display_strategy_popup", locals: { :strategy => @strategy, :display_rules_for_strategy => @display_rules_for_strategy } %>');
+jQuery.noConflict(); 
+$("#myModal").modal('show');

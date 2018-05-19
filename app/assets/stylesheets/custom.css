@@ -1,0 +1,235 @@
+.open > .dropdown-menu
+{
+	margin-top:15px;
+}
+
+.navbar-nav > li > a
+{
+	color: #fff !important;
+	font-size: 16px;
+	padding-bottom :16px !important;
+}
+
+.sidenav a, .dropdown-btn { font-size: 13.5px !important;}
+.dropdown-container > a { font-size: 13.5px !important;}
+
+.list-itm > .img1 { width:33px ; }
+
+.sidenav { min-height: 544px !important; }
+
+
+
+
+@font-face {
+    font-family: 'custom_font'; /*a name to be used later*/
+    src: url('fonts/OpenSans-Regular.ttf'); /*URL to font*/
+}
+.btn-primary
+{
+	float: right;
+	margin-right:5px;
+}
+
+.container
+{
+	width: 1300px !important;
+}
+
+.navbar
+{
+	margin-bottom: 0px;
+}
+.navbar-brand > img
+{
+	margin-left : 120px;
+	width : 120px;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover
+{
+	color: #fff;
+
+}
+
+body
+{
+	font-family: 'custom_font' !important;
+	background-size: cover !important;
+	background: url(img/bg.png);
+}
+
+.gradient {
+	background: linear-gradient(to right, #2AAFD8 , #30BBA5);
+	background: linear-gradient(90deg, #2AAFD8 , #30BBA5);
+	 /* linear-gradient(to right, #709CC6 , #37A68F); */
+}
+
+
+.gradient-bg {
+	background: url(sidenav_bg.png);
+	max-height: 480px;
+	overflow-y: scroll;
+	border-radius: 5px;
+}
+
+
+.profile  { width:100px; }
+
+.navbar-nav > li > a
+{
+	color: #fff !important;
+	font-size: 16px;
+	padding-bottom :20px !important;
+}
+
+.navbar-nav > li.active > a
+{
+	font-weight: bold !important; 
+}
+
+.nav > li > a:focus, .nav > li > a:hover
+{
+	background-color: transparent !important;
+}
+
+/* sidebar */
+
+/* Fixed sidenav, full height */
+.sidenav {    
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: auto;
+    padding-top: 20px;
+	
+	min-height:549px;
+	
+	background: url(sidenav_bg.png);
+	background-size: cover;
+	border-bottom-right-radius: 56px;
+   
+}
+
+.navbar-brand { cursor: unset; }
+
+.ul-btn{
+	list-style-type: none; margin-left:10px;
+}
+
+.custom-btn{
+	width: 268px !important;
+	list-style-type: none; margin-left:10px;
+	margin-bottom: 2px !important;
+}
+
+ul
+{
+	list-style-type : none;
+}
+
+.list-itm > .img1{ float: left; margin-top:10px; padding-left: 20px;}
+
+.list-itm{ }
+
+.side-bg
+{
+	/*background: url(top.png) no-repeat, url(middle.png)  no-repeat, url(height_of_the_drop_down.png)  no-repeat; */
+	background: url(top_1.png) no-repeat; 
+	
+	/*margin-right:-13px; */
+	margin-right: -32px;
+	
+}
+
+
+
+.sidenav a
+{
+	display:inline-block !important;
+}
+
+.search-box{
+	background-color: rgba(238,238,238,0.7); 
+	/*	background: url(btn_search.png) no-repeat; */
+	float: right;
+	width:100%;
+	border: none;
+	height: 35px;
+}
+
+.drp
+{
+	float: right;
+	/* ***************** */
+	padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    
+    color: #fff;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+
+
+.gradient { overflow-y: auto; overflow-x: hidden;
+ border-top-left-radius: 5px;  border-bottom-left-radius: 5px;  border-bottom-right-radius: 5px;  
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #fff;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 20px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+   
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    padding-left: 8px;
+	//background: url(dropdown-bg.jpg);
+	background: linear-gradient(to bottom, #3D6DB5, #009668);
+	box-shadow: -5px 0px 17px -8px #000;
+	    padding-top: 10px;
+    padding-bottom: 10px;
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.dropdown-container > a{
+	padding-left: 20px;
+}
+	
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+/* sidebar */

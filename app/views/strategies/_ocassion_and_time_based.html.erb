@@ -1,0 +1,66 @@
+<div class="dragged-item " id="dragged-item" style="" > 
+	<div class="col-lg-12" style="padding-top:20px; ">  
+		<div class="items" >
+			<span  style=" float: left" class="col-lg-11">
+			  <%= @parent_rule.name %>
+		  </span> 
+		  <div class="" > 
+		  	<img src="../../assets/img/sidebar_icon/time.png" data-toggle="collapse" data-target="#demo1" /> 
+		  </div>  
+		</div>
+		<div id="demo1" class="collapse in col-lg-12" style="style: padding:0px; font-weight: bold; margin-top:10px;"> 
+			<div class="demo-collapse" style="padding:0px;">
+				<span  style=" float: left" class="col-lg-11 selected_rule"><%= @rule.name %></span> 
+				<div class="" > 
+					<img src="../../assets/img/sidebar_icon/time.png" data-toggle="collapse" data-target="#demo11" /> 
+				</div> 
+			</div>
+			<div id="demo11" class="collapse in col-lg-12" style="style: padding:0px; font-weight: bold; margin-top:10px;"> 
+				<%= form_for :strategy_rules, url: rules_for_strategy_path, remote: true, html: {class: "start_and_end_date"} do |f|%>
+					<div class="demo-collapse" style="padding:0px;">
+						<% if @rule.name == "Birthday" || @rule.name == "Anniversary" %>	
+							<div class="col-lg-12" style="padding-top:20px; "> 
+								<div>
+									<span id="date-text1-2" class="date-text1-2" style="display: none;"></span> 
+								</div> 
+								<p style=" font-weight: bold; ">Date : 
+									<%= text_field_tag "rules[date]","",id: "fromdate",onclick: "myfun1()"%> 
+									<div id="demo1-20" style=" float: left;">							
+									</div>
+								</p>
+							</div>
+						<% else %>
+							<div class="col-lg-12" style="padding-top:20px; "> 
+								<div>
+									<span id="date-text1-2" class="date-text1-2" style="display: none;"></span> 
+								</div> 
+								<p style=" font-weight: bold; "> From Date : 
+									<%= text_field_tag "rules[fromdate]","",id: "fromdate",onclick: "myfun1()"%> 
+									<div id="demo1-2" style=" float: left;">							
+									</div>
+								</p>
+							</div>
+							<div class="col-lg-12" style="padding-top:20px;">
+								<div> 
+									<span id="date-text1-21" class="date-text1-21" style="display: none;"></span>
+								</div>
+								<p style=" font-weight: bold; "> End Date :  
+									<%= text_field_tag "rules[todate]","", id: "todate", onclick: "myfun2()"%> 
+									<div id="demo1-21" style=" float: left;">							
+									</div>
+								</p> 
+							</div>						
+						<% end %>
+						<%= hidden_field_tag "strategy_id", @strategy.id%>
+						<%= hidden_field_tag "rule_id", @rule.id%>
+						<div class="col-lg-12" style="padding:0px; margin:20px 0px;">
+							<%= f.submit "Add", class: "btn btn-info"%> 
+						</div>
+					</div>
+				<% end %>
+			</div> 
+		</div>
+	</div>
+</div>
+
+<%= javascript_include_tag "strategy_validation" %>

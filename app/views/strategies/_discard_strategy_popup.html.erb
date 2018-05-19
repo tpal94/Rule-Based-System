@@ -1,0 +1,11 @@
+<div class="modal fade" id="myDeleteModal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body" style="height:90px;">
+        <p>Are you sure, you want to discard this strategy ??</p>
+        <%= link_to "Yes", discard_strategy_path(strategy_id: params[:id]),  method: :delete, class: "btn btn-primary"%>
+      </div>
+    </div>
+  </div>
+</div>

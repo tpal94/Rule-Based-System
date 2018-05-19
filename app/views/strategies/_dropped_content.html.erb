@@ -1,0 +1,19 @@
+<% if @parent_rule.name == "TIME BASED" || @parent_rule.name == "OCASSION BASED" %>
+	<%= render partial: "ocassion_and_time_based"%>
+<% elsif @rule.name == "Rewards" %>
+	<%= render partial: "rewards"%>
+<% elsif @rule.name == "Membership" %>
+	<%= render partial: "loyal_membership"%>
+<% elsif @parent_rule.name == "GENDER BASED" || @parent_rule.name == "GEOGRAPHY" || @rule.name == "Category" || @rule.name == "Product" || @rule.name == "Brand" || @rule.name == "App Download"%>
+	<%= render partial: "gender_geography"%>
+<% elsif @parent_rule.name == "SHOPPING BEHAVIOR" || (@parent_rule.name == "FP APP TRIGGER" && @rule.name != "Referral" && @rule.name != "In-App Engagement Trigger") || (@parent_rule.name == "PRODUCT STRATEGY" && @rule.name != "Category" && @rule.name != "Product") %>
+	<%= render partial: "strategy_behavior_trigger"%>
+<% elsif @rule.name == "Excluded product" || @rule.name == "Excluded Category" || @rule.name == "Club with other offers" %>
+	<%= render partial: "excluded_product_category" %>
+<% elsif @rule.name == "No of times coupon can be Used" || @rule.name == "No of Item Per Person" || @rule.name == "Minimum Purchase" || @rule.name == "In-App Engagement Trigger"%>
+	<%= render partial: "coupon_used" %>
+<% elsif @rule.name == "Referral"%>
+	<%= render partial: "referral" %>	
+<% end %>
+
+

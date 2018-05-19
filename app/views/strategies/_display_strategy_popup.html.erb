@@ -1,0 +1,117 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag "custom" %>
+  <%= stylesheet_link_tag "custom5" %>
+  <%= stylesheet_link_tag "product_strategy" %>
+  <%= stylesheet_link_tag "custom2" %>
+<% end %>
+
+<% unless @display_rules_for_strategy.present? %>
+  <% @display_rules_for_strategy = [] %>
+<% end %>
+<!-- Modal -->
+ <% if @strategy.present? %>
+           <%= render partial: "edit_strategy_popup"%>
+           <% end %>
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+  <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <p class="modal-title" style="font-size: 18px; "><%= @strategy.try(:name) %></p>
+      </div>
+      <div class="modal-body">
+        <% @display_rules_for_strategy.each_with_index do |parent_rule, index| %>
+          <div class="aa1" style="">
+  		      <p class="heading" data-toggle="collapse" data-target="#demo<%= index + 1%>a"  style="">
+              <%= parent_rule[0].name %>
+              <%= image_tag parent_rule[0].icon_image, style: "float: right;" %>
+            <p>
+            <div id="demo<%= index + 1%>a" class="collapse" style="">
+              <% parent_rule[1].uniq.each do |rule| %>
+                
+                <%# value = StrategyRule.where(rule_id: rule.id, strategy_id: @strategy.id).first.value.reverse_each.to_h %>
+                <% values = StrategyRule.where(rule_id: rule.id, strategy_id: @strategy.id) %>
+                <% values.each do |val|  %>
+                  <% value = val.value.reverse_each.to_h %> 
+                  <% if parent_rule[0].name == "GEOGRAPHY" || parent_rule[0].name == "GENDER BASED"  %>
+                    <p data-toggle="collapse" data-target="#<%= rule.name.parameterize + (val.id).to_s %>1a" style="font-size: 12px ;font-weight: bold; cursor: pointer;"><%= value.values[0] %></p>
+                    <div id="<%= rule.name.parameterize + (val.id).to_s %>1a" class="collapse aa2 in" style="">
+                      <p>
+                        <% if parent_rule[0].name == "GENDER BASED" %>
+                          <% image_icon = rule.icon_image %>
+                        <% else %>
+                          <% image_icon = rule.name.constantize.find_by_name(value.values[0]).image_icon %>
+                        <% end %>
+                        <%= image_tag image_icon, style: "width:100px;" %>
+                      </p>
+                    </div>
+                  <% elsif rule.name == "Category" || rule.name == "Product" || rule.name == "Brand" %>
+                    <p data-toggle="collapse" data-target="#<%= rule.name.parameterize + (val.id).to_s %>1a" style="font-size: 12px ;font-weight: bold; cursor: pointer;"><%= rule.name %></p>
+                    <div id="<%= rule.name.parameterize + (val.id).to_s %>1a" class="collapse aa2 in" style="">
+                      <p><%= value.values[0]%></p>
+                    </div>
+                  <% elsif "TIME BASED" == parent_rule[0].name || parent_rule[0].name == "OCASSION BASED" || rule.name == "Referral"%>
+                    <% if parent_rule[0].name == "OCASSION BASED" || rule.name == "Referral" %>
+                      <p style="font-size: 14px; cursor: unset; font-weight: bold;"> <%= rule.name%> </p>
+                    <% end %>
+                    <% value.each do |k,v| %>
+                      <p style="font-size: 12px font-weight: bold;" data-toggle="collapse" data-target="#<%= rule.name.parameterize + (k).to_s %>1a">
+                        <%= k == "fromdate" ? "Start Date & Time" : "End Date & Time"%>
+                      </p>
+                      <% date =  v.to_datetime %>
+                      <%# date =  DateTime.strptime(v,  '%Y/%m/%d %H:%M:%S') %>
+                      <div id="<%= rule.name.parameterize + (k).to_s %>1a" class="collapse in aa2" style="">
+                        <p ><%= date.strftime("%B %d %Y") %> (<%= date.strftime("%H:%M:%S %p") %>)</p>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <p data-toggle="collapse" data-target="#<%= rule.name.parameterize + (val.id).to_s %>1a" style="font-size: 12px ;font-weight: bold; cursor: pointer;"><%= rule.name %></p>
+                    <div id="<%= rule.name.parameterize + (val.id).to_s %>1a" class="collapse aa2 in" style="">
+                      <p>
+                        <% value.each do |k,v| %>
+                          <% if k == "less_than" %>
+                            <%= "< #{v}" %>
+                          <% elsif k == "greater_than" %>
+                            <%= "> #{v} and" %>
+                          <% elsif k == "fromdate" %>
+                            <%= "From Date : #{v} and" %>
+                          <% elsif k == "todate" %>
+                            <%= "To Date : #{v}" %>
+                          <% else %>
+                            <%= v %>
+                          <% end %>
+                        <% end  %> 
+                      </p>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+  		    </div>
+	      <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <% unless params[:action] == "edit" %>
+          <% if @strategy.present? %>
+            <%= link_to "Add Rules", edit_strategy_path(@strategy), class: "btn-primary btn"%>
+            <%= link_to "Delete", discard_strategy_path(strategy_id: @strategy.id), method: :delete, class: "btn-primary btn"%>
+          <% end %>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myEditModal" data-dismiss="modal" >Edit</button>
+         <% end %>
+      </div>
+    </div>
+  </div>      
+</div>
+<style>
+  .aa2 { background : #ddf2fd; }
+  .aa1 {background:#b8e5f9;  }
+  .aa1 > .collapse > p { padding:0px 10px 10px; 10px; cursor: pointer; margin-bottom:0px}
+  .im { padding: 10px; }
+  .aa2 > p { padding:0px 0px 10px 10px; margin-bottom:0px; }
+  .aa1 > div > p { padding-bottom: 10px; } 
+  ul.lst { list-style-type: inherit; }
+
+  .modal-body {  height: 460px; overflow: auto; margin-bottom: 20px; margin-top: 20px; }
+</style>

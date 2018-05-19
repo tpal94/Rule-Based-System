@@ -1,0 +1,62 @@
+.h4-span >span
+{	
+	background-color: #87d5f5;
+	padding: 5px 10px;
+	font-weight: bold;
+	
+}
+
+.h4-span > div >img
+{
+	 background-color: #b5dcdd;
+	 
+	 border-top-right-radius: 5px;
+	 border-bottom-right-radius: 5px;
+	 cursor: pointer;
+	 padding:5px 10px;
+}
+
+.h4-span > div >img[aria-expanded="true"] 
+{
+	 background-color: #30b9a9;
+	 border-top-right-radius: 5px;
+	 border-bottom-right-radius: 5px;
+	 cursor: pointer;
+	 padding:3px 10px;
+}
+
+.demo-collapse
+{
+	padding: 5px 20px;
+	
+}
+.margin
+{
+	margin:5px 0px;
+	
+}
+.fig-border
+{
+	border: 1px solid #bdb7b5;
+	padding: 10px 5px;
+	
+}
+
+.figcap-border
+{
+	border: 1px solid #bdb7b5;
+	padding: 0px;
+}
+
+.fig > .figcap-border > figcaption
+{
+	text-align: center;
+	font-size: 13px; font-weight: bold; 
+
+}
+
+.fig
+{
+	padding:0px;
+}
+

@@ -1,0 +1,116 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag "custom" %>
+  <%= stylesheet_link_tag "custom5" %>
+  <%= stylesheet_link_tag "custom8" %>
+  <%= stylesheet_link_tag "custom2" %>
+  <%= stylesheet_link_tag "product_strategy" %>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 side-bg">
+			<%= render partial: "side_nav"%>
+    </div>
+    <input  type="hidden" value="" id="height_container" />
+		<div class="col-lg-9" style="padding: 0px;">
+			<div class="col-lg-12" style="padding:0px 0px 10px 0px; border-bottom:2px solid #183156; width: 94.8%; background: linear-gradient(to right,#98d0eb, #7ca5d6); padding:10px 0px 0px 0px; border-top-right-radius : 5px;">
+		  	<%= form_for(@strategy) do |f|%>
+		  		<%= f.text_field :name, style: "height:31px; border:none; width:250px; margin-right:10px; margin-left:10px;  float: left; padding: 14px;", placeholder: "Name of Strategy" %>
+		  		<%= f.text_field :tag, style: "height:31px; border:none; width:250px; margin-right:10px; margin-left:10px;  float: left; padding: 14px;", placeholder: "Tag" %>
+		  		<%= f.submit "PROCEED", style: "float: left;", class: "proceed_button"%>
+			  	<h4 style="width:auto; float: left; margin-left: 30px; "><%=  Date.today.strftime("%d-%m-%Y") %></h4>
+			  <% end %>
+		  	<span class="name_of_strategy_error"></span>
+		  </div>
+		  <div class="col-lg-12" style="padding-right: 0px; background-color: #0d464b; padding-left:3px;"> 
+			  <div class="col-lg-6 divheight" style="height:485px; background-color: #fff; padding:0px; border-radius:5px; border-right:2px solid #183156; overflow:auto;">
+					<div class="col-lg-6"  style="padding:0px; background-color:#d3d1d1; padding:10px 0px; width:auto; border-top-left-radius:5px; border-bottom-right-radius:5px; "> 
+						<input type="text" style="width:250px; height:30px; background-color:#f4f2f2; margin-right: 15px; border:none;float:left; " /> 
+						<a href="">
+							<%= image_tag "img/btn_search.png", style: "float:left; padding-right:10px;" %>
+						</a>
+				  </div>
+			  </div>
+			  <div class="col-lg-6 divheight" style="height:485px; background-color: #fff; border-radius:5px; padding:0px; overflow:auto;">
+				  <div class="col-lg-6"  style="padding-right:0px; background-color:#d3d1d1; padding-top:10px; padding-bottom:10px;  width:auto; border-top-right-radius:5px; border-bottom-left-radius:5px; float:right; "> 
+						<a href="">
+							<%= image_tag "img/btn zoom.png", style: "float:left; padding-right:15px;" %>
+						</a>
+						<a href="">
+							<%= image_tag "img/btn edit.png", style: "float:left; padding-right:15px;" %>
+						</a>
+						<a href="">
+							<%= image_tag "img/btn_search.png", style: "float:left; padding-right:15px;" %>
+						</a>
+				  </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+  
+<style type="text/css">
+.sidenav{
+  color: black;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.proceed_button{
+  float: left;
+  background-color: #333;
+  color: white;
+  width: 102px;
+  height: 33px;
+  font-size: 16px;
+  font-weight: bold;
+}
+#wrapper{
+      width: 780px;
+      margin: auto;
+  }
+  body {
+      font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "Microsoft YaHei UI","Microsoft YaHei", STXihei, SimSun, sans-serif;
+  }
+
+  .log-wrapper {
+      float: right;
+  }
+  .log {
+      max-height: 300px;
+      overflow: auto;
+  }
+  .log .log__entry {
+      margin: .1em 0;
+      padding: .1em .2em;
+      border: 1px solid black;
+      white-space: nowrap;
+  }
+
+  .demo-collapse{
+    overflow: none !important;
+  }
+
+  .gradient { overflow-y: auto; overflow-x: hidden; border-top-left-radius: 5px; }
+
+  #mydiv {
+   <!-- position: fixed; -->
+    z-index: 9; 
+  }
+
+  .items { background: linear-gradient(to right,#2bafd4, #588cc0); color: #042832; padding: 10px 0px}
+
+  .error {
+    color: indianred;
+    margin-left: 10px;
+  }
+</style>
+<script type="text/javascript">
+	$( document ).ready(function() {
+     var heightc = $( window ).height();
+     newHeight = heightc-140;
+     document.getElementById("height_container").value = newHeight;
+     
+     $(".divheight").height(newHeight);
+     
+  }); 	
+</script>

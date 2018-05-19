@@ -1,0 +1,10 @@
+
+.div1 { padding: 0px; }
+
+.item-icon > div > img {  padding: 10px; background-color: #b4dce0;border-top-right-radius: 5px; border-bottom-right-radius: 5px; box-shadow: -3px 0px 7px -4px #000;}
+
+.item-icon > img[aria-expanded="true"] {  padding: 10px; background:linear-gradient(90deg, #2AAFD8 , #30BBA5); border-top-right-radius: 5px; border-bottom-right-radius: 5px;   }
+
+.value-inside {  padding-left: 20px; }
+
+img[data-toggle="collapse"] { margin-right: 7px; }

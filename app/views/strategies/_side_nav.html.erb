@@ -1,0 +1,53 @@
+<div class="sidenav">
+  <a style="text-align: center; font-weight: bold;">RULES</a>
+  <div class="gradient-bg" style=""> 
+    <div class="gradient" style="">
+      <% @parent_rules.each_with_index do |rule, index| %>
+        <div class="list-itm <%= index==0 ? "first_list_item" : ""%>">
+          <%= image_tag rule.icon_image, class: "img1 #{rule.name.parameterize}", style: "margin-right: 10px;" %>
+          <ul class="dropdown-btn custom-btn" style="">	<li> <a href="#" style="padding: 0px; width: auto; "> <%= rule.name%> </a> 
+            <%= image_tag "img/sidebar_icon/dropdown.png", class: "drp", style: "margin-top: -15px;" %>
+          </ul>
+          <div class="dropdown-container">
+            <% rule.children.each do |child_rule| %>
+              <%= link_to child_rule.name, selected_rule_path(strategy_id: params[:id],rule_id: child_rule.id, rule_name: child_rule.name) , id: child_rule.id, "data-name": child_rule.name, remote: true %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .geography{
+    margin-right: 14px !important; 
+    width:30px !important;
+  }
+
+  .fp-app-trigger{
+    margin-right: 13px !important; 
+    width:30px !important;
+  }
+
+  .first_list_item{
+    margin-top:20px !important;
+  }
+</style>
+
+<script>
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var i;
+
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+</script>

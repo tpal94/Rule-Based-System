@@ -1,0 +1,111 @@
+<style type="text/css">
+  .gradient { overflow-y: auto; overflow-x: hidden;
+height: 400px; }
+  
+  #wrapper{
+      width: 780px;
+      margin: auto;
+  }
+  body {
+      font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "Microsoft YaHei UI","Microsoft YaHei", STXihei, SimSun, sans-serif;
+  }
+  .log-wrapper {
+      float: right;
+  }
+  .log {
+      max-height: 300px;
+      overflow: auto;
+  }
+  .log .log__entry {
+      margin: .1em 0;
+      padding: .1em .2em;
+      border: 1px solid black;
+      white-space: nowrap;
+  }
+</style>
+
+<nav class="navbar" >
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand">
+      	<%= image_tag "img/logo.gif"%>
+      </a>
+    </div>
+		<div class="col-lg-1"></div>
+    <ul class="nav navbar-nav col-lg-6" style="margin-top: 20px;">
+      <li class="<%= ((params[:action] == "edit" || params[:action] == "new" ) && params[:controller] == "strategies") ? "active" : "" %>"">
+        <%= link_to "CREATE STRATEGY", "/strategies", method: :post%>
+      </li>
+      <li class="<%= ((params[:action] == "index" || params[:action] == "display_drafted_strategy") && params[:controller] == "strategies") ? "active" : "" %>"><a href="/strategies">MY STRATEGIES</a></li>
+      <li class="<%= ((params[:action] == "privacy" || params[:action] == "support")) ? "active" : "" %>"><a href="/support">SUPPORT</a></li>
+    </ul>
+
+    <% unless current_user.present? %>
+      <ul class="nav navbar-nav col-lg-2" style="margin-top: 20px; float:right;">
+        <li style="border-right:2px solid #d3d1d1;">
+          <a href="#" style="padding-bottom:12px !important;">REGISTER</a>
+        </li>
+        <li class="active">
+          <a id="lg" style="cursor:pointer;">LOGIN</a>
+          <div class="login_data" id="login_data" style="width:265px;margin-left:-176px; background:#2096b2; box-shadow: -1px 2px 8px #000; height:220px; position:absolute; border-radius:5px;">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div>
+                <img src="../../assets/img/profile_icon.png" style="padding:20px 112px"  /> 
+              </div>
+              <div>
+                <%= f.email_field :email, autofocus: true, style: "margin-bottom: 10px; border:1px solid #eceeee; width:90%; margin:0px 12px 10px; height:30px; color:#000;", placeholder: " Email ID/ Mobile Number"%>
+              </div>
+              <div>
+                <%= f.password_field :password, autocomplete: "off", style: "margin-bottom: 10px; border:1px solid #eceeee; width:90%; margin:0px 12px 10px; height:30px; color:#000;",placeholder: " Password "%>
+              </div>
+              <div style="text-align: center">
+                <a class="frgt_pswd" style="color: #fff; ">Forgot Password?</a>
+              </div>
+              <%= f.submit "LOGIN", class: "btn btn-info", style: "margin-top:20px; border-radius :10px; margin-left: 77px; background:#37bfbe; width:105px;" %>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+    <% else %>
+  		<div class="profile" style="float: right; margin-top: 20px; margin-right:140px;">
+  			<a href="" style="float: left;" >
+  				<%= image_tag "img/profile_icon.png"%>
+  			</a>
+  			<div class="dropdown">
+  		    <button class="dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="background-color: transparent; border: none; margin-top:15px;" >
+  		    	<%= image_tag "img/triangle down.png"%>
+  				</button>
+  		    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+  		      <li role="presentation"><a role="menuitem" tabindex="-1" href="/my_profile">My Profile</a></li>
+  		      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Setting</a></li>
+  		      <li role="presentation"><a role="menuitem" tabindex="-1" href="/privacy">Privacy</a></li>
+  		      <li role="presentation" class="divider"></li>
+  		      <li role="presentation">
+              <a role="menuitem"  data-toggle="modal" data-target="#logout" style="cursor:pointer">Logout</a>
+            </li>    
+  		    </ul>
+          <div class="modal fade" id="logout" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-body" style="height:90px;">
+                  <p>Log Out??</p>
+                  <%= link_to "OK", destroy_user_session_path,  method: :delete, class: "btn btn-primary"%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</nav>
+
+<script>
+  $(document).ready(function(){
+    $("#login_data").hide();
+    $("#lg").click(function(){
+        $("#login_data").slideToggle();
+    });
+  });
+</script>

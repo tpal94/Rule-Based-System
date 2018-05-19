@@ -1,0 +1,91 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag "custom" %>
+  <%= stylesheet_link_tag "custom5" %>
+  <%= stylesheet_link_tag "product_strategy" %>
+  <%= stylesheet_link_tag "custom2" %>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <%= render partial: "side_nav_drafts"%>  
+
+    <div class="col-lg-9">
+      <div class="col-lg-12" style="padding:0px 0px 10px 0px; border-bottom:2px solid #183156; width: 94.8%; background: linear-gradient(to right,#98d0eb, #7ca5d6); padding:10px 0px 0px 0px; border-top-right-radius : 5px;">
+        <h4 class="col-lg-8" style="color: #fff;"> </h4>
+        <div class="col-lg-4">
+          <h4 style="width:auto; float: right; margin-left: 30px;"></h4>
+        </div>
+      </div>
+	    <div class="col-lg-12" style="height:485px; background-color: #fff; border-radius:5px; padding:0px; overflow: auto;">
+        <div class="col-lg-12" style="margin-top:20px;">
+        	<table class="table table-bordered" >
+            <thead>
+              <tr style="">
+                <th rowspan="2" style="padding-bottom: 22px;" >DATE </th>
+                <th rowspan="2" style="padding-bottom: 22px;">STRATEGY NAME</th>
+                <th rowspan="2" style="padding-bottom: 22px;">TAG NAME</th>
+                <th colspan="2">ACTIVE DATE</th>
+                <th rowspan="2" style="padding-bottom: 22px;">NO OF USERS USED COUPON</th>
+                <th rowspan="2" style="padding-bottom: 22px;"><input type="checkbox" name="select-all" id="select-all" /></th>
+              </tr>
+          	  <tr>	  
+          	   <th>From</th>
+                <th>Upto</th>
+          	  </tr>
+            </thead>
+            <%= form_tag destroy_multiple_strategies_path, method: :delete  do %>
+            <% @strategies.each do |strategy| %>
+              <tbody>
+                <tr class="show_strategy" data-value="<%= strategy.id %>" >
+                  <td><%= strategy.created_at.strftime("%d-%m-%Y") %></td>
+                  <td><%= strategy.name %></td>
+                  <td><%= strategy.tag %></td>
+                  <td><%= active_from(strategy).present? ? active_from(strategy) : "-" %></td>
+                  <td><%= active_upto(strategy).present? ? active_upto(strategy) : "-" %></td>
+                  <td>0</td>
+                  <td><%= check_box_tag 'strategy_ids[]', strategy.id, false %></td>
+                </tr>
+              </tbody>
+            <% end %>
+            <div class="col-lg-12" style="padding:0px; background-color:#f4f3f2;  border-top-left-radius:5px;  border-top-right-radius:5px;">
+              <div class="col-lg-6"  style="padding-right:0px; background-color:#d3d1d1; padding-top:10px; padding-bottom:10px;  width:auto; border-top-right-radius:5px; border-bottom-left-radius:5px; float:right; "> 
+                <%= image_submit_tag("img2/delete.png", style: "float:left; padding-right:15px;", title: "Delete") %>
+              </div>
+            </div>
+          <% end %>
+          </table>
+          <div class="display_strategy">
+            <%= render partial: "display_strategy_popup"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<script type="text/javascript">
+  $(".show_strategy").on("click", function(){
+    var strategy_id = $(this).data('value');
+    $.ajax({
+      type: 'GET',
+      url: '/display_strategy',
+      dataType: 'script',
+      data: {
+        "strategy_id" : strategy_id
+      } 
+    });
+  });
+
+  $('#select-all').click(function(event) {   
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;                        
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;                       
+        });
+    }
+});
+</script>

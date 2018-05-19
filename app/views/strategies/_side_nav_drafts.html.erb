@@ -1,0 +1,195 @@
+<div class="col-lg-3 side-bg" >
+  <div class="sidenav" >
+    <a style="text-align: center; font-weight: bold;">RULES</a>
+    <div class="gradient-bg" style=""> 
+      <div class="gradient" style="">
+        <div class="list-itm" style="margin-top:20px;">
+          <img src="../../assets/img2/all_strategies.png" class="img1" style="margin-right: 10px; width:40px; margin-top:5px;" />
+          <ul class="dropdown-btn custom-btn" style=""> 
+            <li>
+              <%= link_to "ALL STRATEGIES", '/strategies', style: "padding: 0px; width: auto;" %> 
+            </li>
+          </ul>
+        </div>
+        <div class="list-itm" style="">
+          <img src="../../assets/img2/draft.png" class="img1" style="margin-right: 8px; width:40px; margin-top:5px;" />
+          <ul class="dropdown-btn custom-btn" style=""> 
+            <li>
+              <%= link_to "DRAFTS", '/strategies?drafted=true', style: "padding: 0px; width: auto;" %> 
+              </a> 
+            </li>
+          </ul>
+        </div>
+
+        <div class="list-itm">
+          <img src="../../assets/img2/filter.png" class="img1" style="margin-right: 10px; width:37px; margin-top:5px;" />
+          <ul class="dropdown-btn custom-btn" style=""> <li> <a href="" style="padding: 0px; width: auto; "> FILTER </a><img class="drp" src="../../assets/img/sidebar_icon/dropdown.png"  style="margin-top: -15px;" /></li>
+          </ul>
+          <div class="dropdown-container" style="margin-bottom:0px;">
+            <a data-toggle="modal" data-target="#date_filter">Date</a> 
+            <div class="modal fade" id="date_filter" role="dialog">
+              <div class="modal-dialog">
+              <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Filter by Date</h4>
+                  </div>
+                  <div class="modal-body" style="height: 200px;">
+                    <%= form_for :strategy, url: strategies_path, method: :get do |f|%> 
+                      <div class="form-group" style="padding:20px;">
+                        <span id="date-text1-2" class="date-text1-2" style="display: none;"></span>
+                        <label class="control-label col-sm-4" for="email">Enter Start Date</label>
+                        <div class="col-sm-8">
+                          <%= text_field_tag "fromdate" ,"", class: "form-control", onclick: "myfun1()", id: "fromdate"%>
+                          <div id="demo1-20" style=" float: left;">
+                          </div>
+                        </div>
+                      </div>      
+  
+                      <div class="form-group" style="padding:20px;">
+                        <span id="date-text1-21" class="date-text1-21" style="display: none;"></span>  
+                        <label class="control-label col-sm-4" for="email">Enter End Date</label>
+                        <div class="col-sm-8">
+                          <%= text_field_tag "todate" ,"", class: "form-control", onclick: "myfun2()", id: "todate"%>
+                          <div id="demo1-212" style=" float: left;"></div>
+                        </div>
+                      </div>
+                      <%= hidden_field_tag "tag", params[:tag]%>
+                      <%= hidden_field_tag "drafted", params[:drafted]%>
+                      <div class="form-group" style="padding:20px;">
+                        <div class="col-sm-4" ></div>
+                        <div class="col-sm-8">
+                          <%= f.submit "Search", class: "btn btn-primary", style: "float: left"%>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a data-toggle="modal" data-target="#tags_filter">Tags </a>
+            <div class="modal fade" id="tags_filter" role="dialog">
+              <div class="modal-dialog">
+              <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Filter by Tags</h4>
+                  </div>
+                  <div class="modal-body" style="height: 200px;">
+                    <%= form_for :strategy, url: strategies_path, method: :get, html:{class: "tag_filter"} do |f|%> 
+                      <div class="form-group" style="padding:20px;">
+                        <label class="control-label col-sm-4" >Enter Tag</label>
+                        <div class="col-sm-8">
+                          <%= text_field_tag "tag","", class: "form-control", id: "tag"%>
+                        </div>
+                      </div>
+                      <%= hidden_field_tag "fromdate", params[:fromdate]%>
+                      <%= hidden_field_tag "todate", params[:todate]%>
+                      <%= hidden_field_tag "drafted", params[:drafted]%>
+                      <div class="form-group" style="padding:20px;">
+                        <div class="col-sm-4" ></div>
+                        <div class="col-sm-8">
+                          <%= f.submit "Search", class: "btn btn-primary", style: "float: left"%>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+} 
+
+function myfun1(){
+    function logEvent(type, date) {
+      $("<div class='log__entry'/>").hide().html("<strong>"+type + "</strong>: "+date).prependTo($('#eventlog')).show(200);
+    }
+
+    $('#clearlog').click(function() {
+      $('#eventlog').html('');
+    });
+      
+    $('#demo1-2').datetimepicker({
+      date: new Date(),
+      viewMode: 'YMD',
+      onDateChange: function(){
+        $('#date-text1-2').text(this.getText());
+        fromvalue = document.getElementsByClassName('date-text1-2')[0].innerHTML;
+        document.getElementById("fromdate").value = fromvalue;
+      }
+    });  
+
+    $('#demo1-20').datetimepicker({
+      date: new Date(),
+      viewMode: 'YMD',
+      onDateChange: function(){
+        $('#date-text1-2').text(this.getText());
+        fromvalue = document.getElementsByClassName('date-text1-2')[0].innerHTML;
+        document.getElementById("fromdate").value = fromvalue.split(" ")[0];
+      }
+    });       
+  }
+
+  function myfun2(){
+    function logEvent(type, date) {
+      $("<div class='log__entry'/>").hide().html("<strong>"+type + "</strong>: "+date).prependTo($('#eventlog')).show(200);
+    }
+
+    $('#clearlog').click(function() {
+      $('#eventlog').html('');
+    });
+
+    $('#demo1-21').datetimepicker({
+      date: new Date(),
+      viewMode: 'YMD',
+      onDateChange: function(){
+        $('#date-text1-21').text(this.getText());
+        debugger
+        tovalue = document.getElementsByClassName('date-text1-21')[0].innerHTML;
+        document.getElementById("todate").value = tovalue;
+      }
+    });
+
+    $('#demo1-212').datetimepicker({
+      date: new Date(),
+      viewMode: 'YMD',
+      onDateChange: function(){
+        $('#date-text1-21').text(this.getText());
+        tovalue = document.getElementsByClassName('date-text1-21')[0].innerHTML;
+        document.getElementById("todate").value = tovalue.split(" ")[0];
+      }
+    });
+  }
+</script>
+<style type="text/css">
+  .error {
+    color: indianred;
+  }
+</style>

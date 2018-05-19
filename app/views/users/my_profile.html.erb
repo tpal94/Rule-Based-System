@@ -1,0 +1,78 @@
+<%= content_for :head do %>
+  <%= stylesheet_link_tag "custom" %>
+  <%= stylesheet_link_tag "custom5" %>
+  <%= stylesheet_link_tag "product_strategy" %>
+<% end %>
+
+<style>
+	.gradient { overflow-y: auto; overflow-x: hidden; border-top-left-radius: 5px; }
+
+	.list-itm > .img1 { width:33px ; }
+
+	#mydiv {
+	  z-index: 9;  
+	}
+	.items { background: linear-gradient(to right,#2bafd4, #588cc0); color: #042832; padding: 10px 0px}
+	table { font-size: 14px; }
+	table > tbody >  tr > td { padding: 10px 0px; }
+	.sidenav { min-height : 490px !important;} 
+</style>
+
+<div class="container">
+  <div class="row">
+		<div class="col-lg-3 side-bg" >
+			<div class="sidenav" >
+  			<a style="text-align: center; font-weight: bold;">RULES</a>
+  			<div class="gradient-bg" style=""> 
+					<div class="gradient" style="">
+	  				<div class="list-itm" style="margin-top:20px;">
+							<img src="../../assets/img2/profile.png" class="img1" style="margin-right: 10px; width:40px; margin-top:5px;" />
+							<ul class="dropdown-btn custom-btn" style="">	<li> <a href="/my_profile" style="padding: 0px; width: auto; ">MY PROFILE</a> </li>
+	     				</ul>
+	  				</div>
+	   				<div class="list-itm" >
+							<img src="../../assets/img2/settings.png" class="img1" style="margin-right: 10px; width:40px; margin-top:5px;" />
+							<ul class="dropdown-btn custom-btn" style="">	<li> <a href="acct_settings.html" style="padding: 0px; width: auto; ">SETTINGS</a> </li>
+	     				</ul>
+	  				</div>
+	   				<div class="list-itm" >
+							<img src="../../assets/img2/privacy.png" class="img1" style="margin-right: 10px; width:40px; margin-top:5px;" />
+							<ul class="dropdown-btn custom-btn" style="">	<li> <a href="/privacy" style="padding: 0px; width: auto; ">PRIVACY</a> </li>
+	     				</ul>
+	  				</div>
+					</div>
+	   		</div>
+	  	</div>
+	  </div>
+	  <div class="col-lg-9" style="padding: 0px;">
+	  	<div class="col-lg-12" style="height:480px; background-color: #fff; border-radius:5px; overflow: auto;">
+				<h3 style="padding:20px ; border-bottom: 1px solid #d9dadb;"> PROFILE </h3>
+				<table  style="width: 500px; margin:20px;">
+					<tr> 
+						<td valign="top" width="50%" style="font-weight: bold;"> Name </td>
+						<td valign="top" width="50%"> 
+							<div style="width:60px; display:inline; float: left; margin-right:10px;">
+								<img src="../../assets/img/profile_icon.png" style="margin-right:10px; width:100%;" />
+							</div>
+							<div style="display: inline; float: left">
+								<p> <%= current_user.name %> <br> <a href="" ><%= current_user.email %></a></p>
+							</div>
+						</td>
+					</tr>
+					<tr> 
+						<td valign="top" width="50%" style="font-weight: bold;"> Account Name </td>
+						<td valign="top" width="50%"><%= current_user.organization.name %><br> <a href="">Email Id</a><br> Address line1<br>Address Line2	</td>
+					</tr>
+					<tr> 
+						<td valign="top" width="50%" style="font-weight: bold;">Settings</td>
+						<td valign="top" width="50%"> Account Settings	</td>
+					</tr>
+					<tr> 
+						<td valign="top" width="50%" style="font-weight: bold;">Privacy </td>
+						<td valign="top" width="50%"> Account Privacy	</td>
+					</tr>
+				</table>
+	   	</div>
+	  </div>
+	</div>
+</div>
